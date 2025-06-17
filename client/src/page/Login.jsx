@@ -16,7 +16,12 @@ function Login(){
             const{data} = await axios.post('http://localhost:4000/login',{
                 id,password
             });
+            console.log('🔍 data:', data);
+            console.log('🔍 data.id:', data.id);
+            // 로그인 성공 :  token 저장
             alert(`로그인 성공! ${data.id}님`)
+            localStorage.setItem('token',data.token);  
+
 
             // 성공 시 입력값 비우기
             setId('');
