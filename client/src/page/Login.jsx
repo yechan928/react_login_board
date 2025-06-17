@@ -16,7 +16,7 @@ function Login({onLogin}){
         e.preventDefault();
 
         try{
-            const{data} = await axios.post('http://localhost:4000/login',{
+            const{data} = await axios.post('http://localhost:4000/auth/login',{
                 id,password
             });
             // 로그인 성공 :  token 저장
