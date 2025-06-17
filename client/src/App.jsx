@@ -1,23 +1,42 @@
-// client/src/App.jsx
-import React from 'react';
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
-import Register from './page/Register';
-import Login    from './page/Login';
+import React,{useState} from 'react'
+import { Routes, Route } from 'react-router-dom'
 
-function App() {
+import Main     from './page/Main'
+import Login    from './page/Login'
+import Register from './page/Register'
+// import Board  from './page/Board'   // 나중에 추가
+
+import './style/global.css'
+import './App.css'
+
+export default function App() {
+  const [token, setToken] = useState(localStorage.getItem('token'))
+  const [userId, setUserId] = useState(localStorage.getItem('userId'))
+
+  // 로그인 성공 시 token, userId 둘 다 업데이트
+  const handleLogin  = (newToken, newUserId) =>{
+    setToken(newToken)
+    setUserId(newUserId)
+  }
+
+  // **로그아웃 전용 콜백**: state + localStorage 모두 초기화
+  const handleLogout = () =>{
+    setToken(null)
+    setUserId(null)
+    localStorage.removeItem('token')  
+    localStorage.removeItem('userId')
+  }
+
+
   return (
-    <BrowserRouter>
-        <nav>
-            <Link to="/register">회원가입</Link>
-            <Link to="/login">로그인</Link>
-        </nav>
-        <Routes>
-            <Route path="/" element = { <h1>메인 페이지 </h1>}/>
-            <Route path="/register" element={<Register />} />
-            <Route path="/login" element={<Login />} />
-        </Routes>
-    </BrowserRouter>
-  );
+    <Routes>
+      <Route path="/"        element={<Main token ={token} userId = {userId} onLogout = {handleLogout} />} />
+      <Route path="/login"   element={<Login  onLogin={handleLogin}/>} />
+      <Route path="/register"element={<Register />} />
+      {/*
+        // 게시판 페이지 추가 시:
+        // <Route path="/board" element={<Board />} />
+      */}
+    </Routes>
+  )
 }
-
-export default App;

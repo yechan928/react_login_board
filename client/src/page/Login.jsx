@@ -1,12 +1,15 @@
 // client/src/pages/Login.jsx
-import { useState } from "react";
-import axios from 'axios'
+import  React ,{ useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import axios from 'axios';
+import '../style/page/Login.css';
 
-function Login(){
+function Login({onLogin}){
 
     // 1) state 선언: form 필드별로 state 관리
     const [id, setId] = useState('');
     const [password, setPassword] = useState('');
+    const navigate = useNavigate();
 
     // 2) 폼 제출 핸들러
     const handleSubmit = async(e) =>{
@@ -16,16 +19,16 @@ function Login(){
             const{data} = await axios.post('http://localhost:4000/login',{
                 id,password
             });
-            console.log('🔍 data:', data);
-            console.log('🔍 data.id:', data.id);
             // 로그인 성공 :  token 저장
+            localStorage.setItem('token',data.token);
+            localStorage.setItem('userId',data.id);
+            onLogin(data.token,data.id);   
             alert(`로그인 성공! ${data.id}님`)
-            localStorage.setItem('token',data.token);  
-
 
             // 성공 시 입력값 비우기
             setId('');
             setPassword('');
+            navigate('/'); //로그인 후 바로 메인 페이지로             
         }catch(err){
             console.error(err);
             const message = err.response?.data?.message||'에러가 발생했습니다.';
@@ -55,6 +58,7 @@ function Login(){
                 </div>
                 <button type="submit">로그인</button>
             </form>
+            <p>아직 계정이 없으신가요?<Link to = '/register'>회원가입</Link></p>
         </div>
     )
 }
