@@ -4,7 +4,7 @@ import { useNavigate, Link } from "react-router-dom";
 import axios from 'axios';
 import '../style/page/Login.css';
 
-function Login(){
+function Login({onLogin}){
 
     // 1) state 선언: form 필드별로 state 관리
     const [id, setId] = useState('');
@@ -20,13 +20,15 @@ function Login(){
                 id,password
             });
             // 로그인 성공 :  token 저장
-            localStorage.setItem('token',data.token);  
+            localStorage.setItem('token',data.token);
+            localStorage.setItem('userId',data.id);
+            onLogin(data.token,data.id);   
             alert(`로그인 성공! ${data.id}님`)
 
             // 성공 시 입력값 비우기
             setId('');
             setPassword('');
-            navigate('/board'); //로그인 후 바로 게시판으로             
+            navigate('/'); //로그인 후 바로 메인 페이지로             
         }catch(err){
             console.error(err);
             const message = err.response?.data?.message||'에러가 발생했습니다.';

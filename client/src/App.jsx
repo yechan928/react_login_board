@@ -1,53 +1,42 @@
-// client/src/App.jsx
-import React from 'react';
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import React,{useState} from 'react'
+import { Routes, Route } from 'react-router-dom'
 
-import Main     from './page/Main';
-import Login    from './page/Login';
-import Register from './page/Register';
+import Main     from './page/Main'
+import Login    from './page/Login'
+import Register from './page/Register'
+// import Board  from './page/Board'   // 나중에 추가
 
-import './style/global.css';
-import './App.css';
+import './style/global.css'
+import './App.css'
 
-function PrivateRoute({children}){
-  const token = localStorage.getItem('token');
-  return token ? children : <Navigate to="/login" replace />
-}
+export default function App() {
+  const [token, setToken] = useState(localStorage.getItem('token'))
+  const [userId, setUserId] = useState(localStorage.getItem('userId'))
 
-function App() {
+  // 로그인 성공 시 token, userId 둘 다 업데이트
+  const handleLogin  = (newToken, newUserId) =>{
+    setToken(newToken)
+    setUserId(newUserId)
+  }
+
+  // **로그아웃 전용 콜백**: state + localStorage 모두 초기화
+  const handleLogout = () =>{
+    setToken(null)
+    setUserId(null)
+    localStorage.removeItem('token')  
+    localStorage.removeItem('userId')
+  }
+
+
   return (
-    <BrowserRouter>
-      <header className="site-header">
-        <div className="wrapper">
-          <h1 className="logo">LoginBoard</h1>
-          <nav className="main-nav">
-            <Link to="/">메인</Link>
-            <Link to="/login">로그인</Link>
-            <Link to="/register">회원가입</Link>
-          </nav>
-        </div>
-      </header>
-
-      <main className="site-content">
-        <div className="wrapper">
-          <Routes>
-            <Route path="/" element={         
-              <PrivateRoute>
-                <Main />
-              </PrivateRoute>} />  
-            <Route path="/login"   element={<Login />} />
-            <Route path="/register" element={<Register />} />
-          </Routes>
-        </div>
-      </main>
-
-      <footer className="site-footer">
-        <div className="wrapper">
-          © 2025 LoginBoard
-        </div>
-      </footer>
-    </BrowserRouter>
-  );
+    <Routes>
+      <Route path="/"        element={<Main token ={token} userId = {userId} onLogout = {handleLogout} />} />
+      <Route path="/login"   element={<Login  onLogin={handleLogin}/>} />
+      <Route path="/register"element={<Register />} />
+      {/*
+        // 게시판 페이지 추가 시:
+        // <Route path="/board" element={<Board />} />
+      */}
+    </Routes>
+  )
 }
-
-export default App;
