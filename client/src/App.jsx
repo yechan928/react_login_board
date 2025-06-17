@@ -4,7 +4,7 @@ import { Routes, Route } from 'react-router-dom'
 import Main     from './page/Main'
 import Login    from './page/Login'
 import Register from './page/Register'
-// import Board  from './page/Board'   // 나중에 추가
+import BoardList  from './page/BoardList' 
 
 import './style/global.css'
 import './App.css'
@@ -33,10 +33,7 @@ export default function App() {
       <Route path="/"        element={<Main token ={token} userId = {userId} onLogout = {handleLogout} />} />
       <Route path="/login"   element={<Login  onLogin={handleLogin}/>} />
       <Route path="/register"element={<Register />} />
-      {/*
-        // 게시판 페이지 추가 시:
-        // <Route path="/board" element={<Board />} />
-      */}
+      <Route path="/boardlist" element={<BoardList />} />
     </Routes>
   )
 }

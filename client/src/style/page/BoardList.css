@@ -1,0 +1,51 @@
+/* client/src/style/page/BoardList.css */
+
+.board-list-container {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 1rem;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.board-list-container h2 {
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+  color: #333;
+  border-bottom: 2px solid #f0f0f0;
+  padding-bottom: 0.5rem;
+}
+
+.board-list-container p {
+  text-align: center;
+  color: #666;
+  margin-top: 2rem;
+}
+
+.board-list-container ul {
+  list-style: none;
+  padding: 0;
+}
+
+.board-list-container li {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #e0e0e0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.board-list-container li:last-child {
+  border-bottom: none;
+}
+
+.board-list-container li strong {
+  font-weight: 600;
+  color: #222;
+}
+
+.board-list-container li span {
+  font-size: 0.9rem;
+  color: #555;
+}
