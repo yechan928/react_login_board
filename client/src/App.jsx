@@ -1,10 +1,11 @@
 import React,{useState} from 'react'
 import { Routes, Route } from 'react-router-dom'
 
-import Main     from './page/Main'
-import Login    from './page/Login'
-import Register from './page/Register'
-import BoardList  from './page/BoardList' 
+import Main     from './page/Main';
+import Login    from './page/Login';
+import Register from './page/Register';
+import BoardList  from './page/BoardList' ;
+import BoardDetail from './page/BoardDetail';
 
 import './style/global.css'
 import './App.css'
@@ -34,6 +35,7 @@ export default function App() {
       <Route path="/login"   element={<Login  onLogin={handleLogin}/>} />
       <Route path="/register"element={<Register />} />
       <Route path="/boardlist" element={<BoardList />} />
+      <Route path="/board/:id"  element={<BoardDetail/>}/>
     </Routes>
   )
 }

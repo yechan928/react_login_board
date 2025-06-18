@@ -1,7 +1,7 @@
 // client/src/page/BoardList.jsx
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-
+import { Link } from 'react-router-dom';
 import '../style/page/BoardList.css';
 
 export default function BoardList() {
@@ -24,10 +24,12 @@ export default function BoardList() {
       ( <ul>
             {posts.map(post => (
             <li key={post.id}>
-                <strong>{post.title}</strong>
+                {/* 제목 클릭 시 /board/:id 로 이동 */}
+                <Link to={`/board/${post.id}`}>
+                    <strong>{post.title}</strong>
+                </Link>
                 <span>
-                    by {post.author_id} at{' '}
-                    {new Date(post.created_at).toLocaleString()}
+                    by {post.author_id} at {new Date(post.created_at).toLocaleString()}
                 </span> 
             </li>
           ))}
