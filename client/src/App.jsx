@@ -40,6 +40,7 @@ export default function App() {
       <Route path="/board/:id"  element={<BoardDetail/>}/>
       <Route path="/board/create" element={<BoardCreate/>}/>
       <Route path="/board/:id/edit" element={<BoardEdit/>}/>
+      <Route path="/board/:id"  element={<BoardDetail/>}/>
     </Routes>
   )
 }

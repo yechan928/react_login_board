@@ -28,8 +28,7 @@ export default function BoardEdit() {
      });
   }, [id]);
 
-  // TODO: 4) handleSubmit 에서 PUT 요청 구현
-// 수정 폼 제출 핸들러
+// 수정 폼 제출 핸들러 - handleSubmit 에서 PUT 요청 구현
  const handleSubmit = async (e) => {
    e.preventDefault();
 

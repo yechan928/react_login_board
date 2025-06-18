@@ -110,3 +110,30 @@ export async function update(req, res) {
     return res.status(500).json({ message: '게시글 수정 실패' });
   }
 }
+
+/* 게시글 삭제 핸들러 - DELETE /post/:id */
+export async function remove(req, res) {
+  const { id } = req.params;
+  const authorId = req.user.id;
+
+  try {
+    // (1) 글 존재 여부 & 작성자 검증
+    const [rows] = await pool.query(
+      'SELECT author_id FROM posts WHERE id = ?',
+      [id]
+    );
+    if (!rows.length) {
+      return res.status(404).json({ message: '게시글이 없습니다.' });
+    }
+    if (rows[0].author_id !== authorId) {
+      return res.status(403).json({ message: '삭제 권한이 없습니다.' });
+    }
+
+    // (2) 실제 삭제
+    await pool.query('DELETE FROM posts WHERE id = ?', [id]);
+    return res.json({ message: '삭제 완료' });
+  } catch (err) {
+    console.error('게시글 삭제 오류 ▶', err);
+    return res.status(500).json({ message: '게시글 삭제 실패' });
+  }
+}
