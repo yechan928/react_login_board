@@ -7,6 +7,7 @@ import Register from './page/Register';
 import BoardList  from './page/BoardList' ;
 import BoardDetail from './page/BoardDetail';
 import BoardCreate from './page/BoardCreate';
+import BoardEdit from './page/BoardEdit';
 
 import './style/global.css'
 import './App.css'
@@ -38,6 +39,7 @@ export default function App() {
       <Route path="/boardlist" element={<BoardList />} />
       <Route path="/board/:id"  element={<BoardDetail/>}/>
       <Route path="/board/create" element={<BoardCreate/>}/>
+      <Route path="/board/:id/edit" element={<BoardEdit/>}/>
     </Routes>
   )
 }

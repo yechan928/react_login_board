@@ -1,7 +1,7 @@
 // server/routes/posts.js
 
 import express from 'express';
-import { list, detail,create } from '../controllers/postController.js';
+import { list, detail,create,update } from '../controllers/postController.js';
 import { verifyToken } from '../middlewares/auth.js';
 
 
@@ -13,5 +13,7 @@ router.get('/', list);
 router.get('/:id', detail);           
 // 글 작성 (인증 필요)
 router.post('/', verifyToken, create);
+// 글 수정
+router.put('/:id', verifyToken, update);
 
 export default router;

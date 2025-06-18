@@ -6,19 +6,22 @@ import axios from 'axios';
 import '../style/page/BoardDetail.css';  // 이후 스타일링할 때 사용
 
 export default function BoardDetail() {
-  const { id } = useParams();        // URL 파라미터에서 글 ID 추출
-  const navigate = useNavigate();    // 목록으로 돌아가기용
-  const [post, setPost] = useState(null);
+    const { id } = useParams();        // URL 파라미터에서 글 ID 추출
+    const navigate = useNavigate();    // 목록으로 돌아가기용
+    const [post, setPost] = useState(null);
+
+  // 1) 로컬스토리지에서 로그인한 사용자 ID 가져오기
+    const currentUserId = localStorage.getItem('userId');
 
   useEffect(() => {
     // 1) 컴포넌트 마운트 시 글 세부 정보 요청
     axios
-      .get(`http://localhost:4000/post/${id}`)  // 서버 마운트 경로에 따라 '/post' 혹은 '/posts'
+      .get(`http://localhost:4000/post/${id}`)  
       .then(res => setPost(res.data))
       .catch(err => {
         console.error('상세 조회 실패 ▶', err);
         alert('게시글을 불러올 수 없습니다.');
-        navigate('/board');
+        navigate('/boardlist');
       });
   }, [id, navigate]);
 
@@ -36,6 +39,12 @@ export default function BoardDetail() {
       <div className="content">
         {post.content}
       </div>
+        {/* 2) 작성자와 현재 사용자가 같을 때만 수정 버튼 표시 */}
+        {post.author_id === currentUserId && (
+        <button onClick={() => navigate(`/board/${id}/edit`)}>
+            수정
+        </button>
+        )}
       <button onClick={() => navigate('/boardlist')}>목록으로 돌아가기</button>
     </div>
   );

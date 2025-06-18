@@ -74,3 +74,39 @@ export async function create(req, res) {
     return res.status(500).json({ message: '게시글 작성 실패' });
   }
 }
+/* 게시글 수정 핸들러 - PUT /post/:id */
+export async function update(req, res) {
+  const { id } = req.params;
+  const { title, content } = req.body;
+  const authorId = req.user.id;
+
+  // 1) 필수값 검사
+  if (!title || !content) {
+    return res.status(400).json({ message: '제목과 내용을 모두 입력하세요.' });
+  }
+
+  try {
+    // 2) 작성자 확인
+    const [rows] = await pool.query(
+      'SELECT author_id FROM posts WHERE id = ?', [id]
+    );
+    if (!rows.length) {
+      return res.status(404).json({ message: '게시글이 없습니다.' });
+    }
+    if (rows[0].author_id !== authorId) {
+      return res.status(403).json({ message: '수정 권한이 없습니다.' });
+    }
+
+    // 3) 업데이트 실행
+    await pool.query(
+      'UPDATE posts SET title = ?, content = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?',
+      [title, content, id]
+    );
+
+    // 4) 성공 응답
+    return res.json({ message: '수정 완료' });
+  } catch (err) {
+    console.error('게시글 수정 오류 ▶', err);
+    return res.status(500).json({ message: '게시글 수정 실패' });
+  }
+}
