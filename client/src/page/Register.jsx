@@ -20,7 +20,7 @@ export default function Register(){
         }
         // 여기서 서버에 보낸다.
         try{
-            const{data} = await axios.post('http://localhost:4000/register',{
+            const{data} = await axios.post('http://localhost:4000/auth/register',{
                 id,password,email
             });
             alert(`회원가입 성공! 환영합니다. ${data.id}님`)

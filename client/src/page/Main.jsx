@@ -26,6 +26,7 @@ export default function Main({token, userId, onLogout}) {
           {!token && <Link to="/register">회원가입</Link>}
           {token && <span className="welcome">환영합니다. {userId}님</span>}
           {token  && <button className="btn-logout" onClick={handleLogout}>로그아웃</button>}
+          {token  && <Link to="/boardlist">게시판</Link>}
         </nav>
       </header>
 

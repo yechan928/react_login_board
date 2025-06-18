@@ -1,0 +1,41 @@
+.board-detail-container {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.board-detail-container h2 {
+  font-size: 1.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.board-detail-container .meta {
+  color: #666;
+  margin-bottom: 1rem;
+}
+
+.board-detail-container .content {
+  white-space: pre-wrap;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.board-detail-container button {
+  margin-right: 0.5rem;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.board-detail-container button.delete {
+  background: #dc3545;
+  color: #fff;
+}
+
+.board-detail-container button.delete:hover {
+  background: #c82333;
+}

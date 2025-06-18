@@ -1,10 +1,13 @@
 import React,{useState} from 'react'
 import { Routes, Route } from 'react-router-dom'
 
-import Main     from './page/Main'
-import Login    from './page/Login'
-import Register from './page/Register'
-// import Board  from './page/Board'   // 나중에 추가
+import Main     from './page/Main';
+import Login    from './page/Login';
+import Register from './page/Register';
+import BoardList  from './page/BoardList' ;
+import BoardDetail from './page/BoardDetail';
+import BoardCreate from './page/BoardCreate';
+import BoardEdit from './page/BoardEdit';
 
 import './style/global.css'
 import './App.css'
@@ -33,10 +36,11 @@ export default function App() {
       <Route path="/"        element={<Main token ={token} userId = {userId} onLogout = {handleLogout} />} />
       <Route path="/login"   element={<Login  onLogin={handleLogin}/>} />
       <Route path="/register"element={<Register />} />
-      {/*
-        // 게시판 페이지 추가 시:
-        // <Route path="/board" element={<Board />} />
-      */}
+      <Route path="/boardlist" element={<BoardList />} />
+      <Route path="/board/:id"  element={<BoardDetail/>}/>
+      <Route path="/board/create" element={<BoardCreate/>}/>
+      <Route path="/board/:id/edit" element={<BoardEdit/>}/>
+      <Route path="/board/:id"  element={<BoardDetail/>}/>
     </Routes>
   )
 }
