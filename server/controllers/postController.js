@@ -41,3 +41,36 @@ export async function detail(req, res) {
     return res.status(500).json({ message: '게시글 조회 실패' });
   }
 }
+
+/* 게시글 작성 핸들러 - POST /post */
+export async function create(req, res) {
+  try {
+    // 클라이언트가 보낸 제목과 내용
+    const { title, content } = req.body;
+    // verifyToken 미들웨어로부터 주입된 로그인한 사용자 ID
+    const authorId = req.user.id;
+
+    // 1) 유효성 검사
+    if (!title || !content) {
+      return res.status(400).json({ message: '제목과 내용을 모두 입력하세요.' });
+    }
+
+    // 2) DB에 INSERT
+    const [result] = await pool.query(
+      'INSERT INTO posts (title, content, author_id) VALUES (?, ?, ?)',
+      [title, content, authorId]
+    );
+
+    // 3) 생성된 글 ID와 함께 응답
+    return res.status(201).json({
+      id: result.insertId,
+      title,
+      content,
+      author_id: authorId,
+      created_at: new Date()
+    });
+  } catch (err) {
+    console.error('게시글 작성 오류 ▶', err);
+    return res.status(500).json({ message: '게시글 작성 실패' });
+  }
+}

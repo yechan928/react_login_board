@@ -1,12 +1,14 @@
 // client/src/page/BoardList.jsx
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import '../style/page/BoardList.css';
 
 export default function BoardList() {
     // 1) 컴포넌트 상태: 서버에서 받아올 게시글 목록
     const [posts, setPosts] = useState([]);
+
+    const navigate = useNavigate();
 
   useEffect(() => {
     // 2) 페이지가 마운트(=로드)되면 한 번만 실행
@@ -20,6 +22,11 @@ export default function BoardList() {
   return (
     <div className="board-list-container">
       <h2>게시판 목록</h2>
+      {/* 새 글 쓰기 버튼 */}
+        <button onClick={() => navigate('/board/create')}>
+            글 작성하기
+        </button>
+
       {posts.length === 0 ? (<p>게시글이 없습니다.</p>) : 
       ( <ul>
             {posts.map(post => (

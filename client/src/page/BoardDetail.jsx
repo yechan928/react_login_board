@@ -36,7 +36,7 @@ export default function BoardDetail() {
       <div className="content">
         {post.content}
       </div>
-      <button onClick={() => navigate('/board')}>목록으로 돌아가기</button>
+      <button onClick={() => navigate('/boardlist')}>목록으로 돌아가기</button>
     </div>
   );
 }
