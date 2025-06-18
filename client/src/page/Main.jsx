@@ -6,7 +6,7 @@ export default function Main({token, userId, onLogout}) {
     const navigate = useNavigate()
 
     const handleStart = () => {
-    navigate(token ? '/' : '/login')
+    navigate(token ? '/boardlist' : '/login')
     }
     
     const handleLogout = () =>{
@@ -17,7 +17,7 @@ export default function Main({token, userId, onLogout}) {
 
   return (
     <div className="main-container">
-      {/* ── 글로벌 헤더 ───────────────── */}
+      {/* ── 글로벌 헤더 ─────────────────
       <header className="global-header">
         <h1 className="logo"><Link to="/">LoginBoard</Link></h1>
         <nav className="global-nav">
@@ -28,7 +28,7 @@ export default function Main({token, userId, onLogout}) {
           {token  && <button className="btn-logout" onClick={handleLogout}>로그아웃</button>}
           {token  && <Link to="/boardlist">게시판</Link>}
         </nav>
-      </header>
+      </header> */}
 
       {/* ── 히어로 배너 ───────────────── */}
       <section className="hero">
@@ -41,10 +41,10 @@ export default function Main({token, userId, onLogout}) {
       {/* ── 특징 섹션 ─────────────────── */}
       <section className="features">
         {[
-          { icon: '🔒', label: '안전한 인증' },
-          { icon: '⚡', label: '빠른 속도' },
-          { icon: '📱', label: '반응형 UI' },
-          { icon: '🎨', label: '간편한 스타일링' },
+          { icon: '🥪', label: '빵' },
+          { icon: '☕️', label: '커피' },
+          { icon: '🧋', label: '스무디' },
+          { icon: '🎲', label: '요트다이스' },
         ].map((f) => (
           <div key={f.label} className="feature-card">
             <div className="icon">{f.icon}</div>

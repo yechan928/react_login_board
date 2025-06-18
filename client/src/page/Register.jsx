@@ -1,5 +1,6 @@
 // client/src/pages/Register.jsx
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from 'axios'
 import '../style/page/Register.css';
 
@@ -10,6 +11,7 @@ export default function Register(){
     const [email, setEmail] = useState('');
     const [password,setPassword] = useState('');
     const [confirm,setConfirm ] = useState('');
+    const navigate = useNavigate();
 
     // 2) 폼 제출 핸들러
     const handleSubmit = async(e) => {
@@ -24,12 +26,13 @@ export default function Register(){
                 id,password,email
             });
             alert(`회원가입 성공! 환영합니다. ${data.id}님`)
-
-            // 성공 시 입력값 비우기
-            setId('');
-            setPassword('');
-            setConfirm('');
-            setEmail('');
+            // 회원가입 후 메인 페이지로 이동
+            navigate('/login');
+            // // 성공 시 입력값 비우기
+            // setId('');
+            // setPassword('');
+            // setConfirm('');
+            // setEmail('');
             
         }catch(err){
             console.error(err);
