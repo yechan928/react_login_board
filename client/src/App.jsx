@@ -8,6 +8,7 @@ import BoardList  from './page/BoardList' ;
 import BoardDetail from './page/BoardDetail';
 import BoardCreate from './page/BoardCreate';
 import BoardEdit from './page/BoardEdit';
+import Header from './Header';
 
 import './style/global.css'
 import './App.css'
@@ -32,15 +33,19 @@ export default function App() {
 
 
   return (
-    <Routes>
-      <Route path="/"        element={<Main token ={token} userId = {userId} onLogout = {handleLogout} />} />
-      <Route path="/login"   element={<Login  onLogin={handleLogin}/>} />
-      <Route path="/register"element={<Register />} />
-      <Route path="/boardlist" element={<BoardList />} />
-      <Route path="/board/:id"  element={<BoardDetail/>}/>
-      <Route path="/board/create" element={<BoardCreate/>}/>
-      <Route path="/board/:id/edit" element={<BoardEdit/>}/>
-      <Route path="/board/:id"  element={<BoardDetail/>}/>
-    </Routes>
+    <>
+      {/* 공통 헤더: 모든 페이지에서 보임 */}
+      <Header token={token} userId={userId} onLogout={handleLogout} />
+      <Routes>
+        <Route path="/"        element={<Main token ={token} userId = {userId} onLogout = {handleLogout} />} />
+        <Route path="/login"   element={<Login  onLogin={handleLogin}/>} />
+        <Route path="/register"element={<Register />} />
+        <Route path="/boardlist" element={<BoardList />} />
+        <Route path="/board/:id"  element={<BoardDetail/>}/>
+        <Route path="/board/create" element={<BoardCreate/>}/>
+        <Route path="/board/:id/edit" element={<BoardEdit/>}/>
+        <Route path="/board/:id"  element={<BoardDetail/>}/>
+      </Routes>
+    </>
   )
 }
