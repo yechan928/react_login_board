@@ -17,7 +17,7 @@ export default function Header({ token, userId, onLogout }) {
         <Link to="/">메인</Link>
         {!token && <Link to="/login">로그인</Link>}
         {!token && <Link to="/register">회원가입</Link>}
-        {token && <Link to="/board">게시판</Link>}
+        {token && <Link to="/boardlist">게시판</Link>}
         {token && <span className="welcome">환영합니다. {userId}님</span>}
         {token && <button className="btn-logout" onClick={handleLogout}>로그아웃</button>}
       </nav>
